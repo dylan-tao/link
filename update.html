@@ -124,6 +124,9 @@
       text-align: center;
       background: #2d3e50;
     }
+     .scrollspy-nav {
+	    z-index: 100;
+    }
   </style>
 </head>
 <body>
@@ -166,8 +169,8 @@
     <div class="am-g">
       <div class="am-u-sm-11 am-u-sm-centered">
         <div class="am-cf am-article">
-          <div class="content">
-
+          <div>
+				<small class="content"></small>
           </div>
         </div>
 		<br>
@@ -175,8 +178,8 @@
     </div>
   </div>
   <div class="am-u-md-2 am-u-md-pull-10 my-sidebar">
-    <div class="am-offcanvas" id="sidebar">
-      <div class="am-offcanvas-bar">
+    <div class="am-offcanvas" id="sidebar" >
+      <div class="scrollspy-nav" data-am-scrollspynav="{offsetTop: 58}" data-am-sticky>
         <ul class="am-nav">
           <li class="am-nav-header v-list">版本列表</li>
         </ul>
@@ -214,17 +217,24 @@
 <!--<![endif]-->
 <script src="js/amazeui.min.js"></script>
 <script type="text/javascript">
+    var updateData = null;
     $.getJSON("update.json?v=11232546547",function(data){
-      var domain = data.base.domain;  
-      var updates = data.update;
-      for (var i = 0; i < updates.length; i++) {
-            var v = updates[i].v;
-            var content = updates[i].content;
-            var href = domain + v;
-            $('.v-list').after('<li><a>'+ v +'</a></li>');
-            $('.content').append('<h3>'+ v +'更新内容: </h3><hr><p class="am-article-lead">'+ content +'</p>');
-      }
-    });      
+      updateData = data;
+      loadData(data);
+    });   
+
+    function loadData(data){
+        var domain = data.base.domain;  
+        var updates = data.update;
+        for (var i = 0; i < updates.length; i++) {
+              var v = updates[i].v;
+              var content = updates[i].content;
+              var date = updates[i].date;
+              var href = domain + v + ".jar";
+              $('.v-list').after('<li><a href="#'+v+'">'+ v +'</a></li>');
+              $('.content').after('<h3 id="'+v+'" name="'+v+'">'+ v +'更新内容: <small class="am-text-danger" style="padding-left:12px;">'+date+'</small></h3><hr><p class="am-article-lead">'+ content +'</p><p class="am-text-right am-text-sm"><a href="'+ href +'" target="_blank">下载地址</a>&nbsp;<a href="javascript:void(0);" target="_blank">源码下载</a></p>');
+        }
+    }   
 </script>
 </body>
 </html>
