@@ -1,7 +1,7 @@
 {
     "base": {
         "v": "0.9.5",
-        "dl-domain": "https://github.com/javaosc-projects/link/raw/gh-pages/issue/galaxy-",
+        "domain": "https://github.com/javaosc-projects/link/raw/gh-pages/issue/galaxy-",
         "download": "0.9.5.RELEASE.jar"
     },
     "update": [

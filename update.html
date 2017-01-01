@@ -167,7 +167,7 @@
       <div class="am-u-sm-11 am-u-sm-centered">
         <div class="am-cf am-article">
           <div class="content">
-		          
+
           </div>
         </div>
 		<br>
@@ -214,15 +214,15 @@
 <!--<![endif]-->
 <script src="js/amazeui.min.js"></script>
 <script type="text/javascript">
-    $.getJSON("update.json?v=11232546546",function(data){
-      var domain = data.base.dl-domain;  
+    $.getJSON("update.json?v=11232546547",function(data){
+      var domain = data.base.domain;  
       var updates = data.update;
       for (var i = 0; i < updates.length; i++) {
             var v = updates[i].v;
             var content = updates[i].content;
             var href = domain + v;
             $('.v-list').after('<li><a>'+ v +'</a></li>');
-            $('.content').append('<p class="am-article-lead">'+ content +'</p>');
+            $('.content').append('<h3>'+ v +'更新内容: </h3><hr><p class="am-article-lead">'+ content +'</p>');
       }
     });      
 </script>
