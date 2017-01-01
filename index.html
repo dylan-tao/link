@@ -153,10 +153,10 @@
          期待您的参与，共同打造一个 <strong style="color: ">“简单易用”</strong> 的<strong> J2EE</strong> 开源框架
       </p>
       <p>	
-		<a href="#" target="_blank" class="am-btn am-btn-default get-btn"><i class="am-icon-download"></i> 立即下载</a>&nbsp;
+		<a target="_blank" class="am-btn am-btn-default get-btn download"><i class="am-icon-download"></i> 立即下载</a>&nbsp;
 		<a href="document.html" target="_blank" class="am-btn am-btn-default get-btn"><i class="am-icon-book"></i> 快速上手</a>	
       </p>
-      <p><small>最新版本: <span>0.9.2</span> &nbsp; <a style="color: #f1f1f1" href="https://github.com/javaosc-projects/galaxy/archive/master.zip" target="_blank">下载源码</a></small></p>
+      <p><small>最新版本: <span class="v">0.9.2</span> &nbsp; <a style="color: #f1f1f1" href="https://github.com/javaosc-projects/galaxy/archive/master.zip" target="_blank">下载源码</a></small></p>
       <p><small><a href="http://jq.qq.com/?_wv=1027&k=2FRJhgw" style="color: #f1f1f1" target="_blank"><i class="am-icon-comments-o"></i> QQ群组</a> &nbsp; <a href="http://weibo.com/javaosc" style="color: #f1f1f1" target="_blank"><i class="am-icon-weibo"></i> 官方微博</a> &nbsp; <a href="https://github.com/javaosc-projects/galaxy" style="color: #f1f1f1" target="_blank"><i class="am-icon-github"></i> Github</a></small></p>
     </div>
   </div>
@@ -265,14 +265,19 @@
 <!--<![endif]-->
 <script src="js/amazeui.min.js"></script>
 <script type="text/javascript">
+    $.getJSON("update.json",function(data){
+    	$(".download").atrr("href",data.base.download);
+    	$(".v").html("href",data.base.v);
+
+    });
 	console.log("    ______          __                          ");
-  		console.log("  .' ___  |        [  |             ");
-  		console.log(" / .'   \_|  ,--.   | |  ,--.   _   __   _   __ ");
-  		console.log(" | |   ____ `'_\ :  | | `'_\ : [ \ [  ] [ \ [  ]");
-  		console.log(" \ `.___]  |// | |, | | // | |, > '  <   \ '/ /  ");
-  		console.log("  `._____.' \'-;__/[___]\'-;__/[__]`\_] [ \_:/  ");
-  		console.log("                                         \__.' ");
-  		console.log(" Thanks! Good Luck~ | Community: www.javaosc.com "); 		  
+  	console.log("  .' ___  |        [  |             ");
+  	console.log(" / .'   \_|  ,--.   | |  ,--.   _   __   _   __ ");
+  	console.log(" | |   ____ `'_\ :  | | `'_\ : [ \ [  ] [ \ [  ]");
+  	console.log(" \ `.___]  |// | |, | | // | |, > '  <   \ '/ /  ");
+  	console.log("  `._____.' \'-;__/[___]\'-;__/[__]`\_] [ \_:/  ");
+  	console.log("                                         \__.' ");
+  	console.log(" Thanks! Good Luck~ | Community: www.javaosc.com "); 			  
 </script>
 </body>
 </html>
