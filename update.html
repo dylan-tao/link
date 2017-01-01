@@ -166,8 +166,8 @@
     <div class="am-g">
       <div class="am-u-sm-11 am-u-sm-centered">
         <div class="am-cf am-article">
-          <div>
-		   <p class="am-article-lead">待更新</p>
+          <div class="content">
+		          
           </div>
         </div>
 		<br>
@@ -178,8 +178,7 @@
     <div class="am-offcanvas" id="sidebar">
       <div class="am-offcanvas-bar">
         <ul class="am-nav">
-          <li class="am-nav-header">版本列表</li>
-          <li><a href="#">0.9.5.RELEASE</a></li>
+          <li class="am-nav-header v-list">版本列表</li>
         </ul>
       </div>
     </div>
@@ -214,5 +213,18 @@
 <script src="js/jquery.min.js"></script>
 <!--<![endif]-->
 <script src="js/amazeui.min.js"></script>
+<script type="text/javascript">
+    $.getJSON("update.json",function(data){
+      var domain = data.base.dl-domain;  
+      var updates = data.update;
+      for (var i = 0; i < updates.length; i++) {
+            var v = updates[i].v;
+            var content = updates[i].content;
+            var href = domain + v;
+            $('.v-list').after('<li><a>'+ v +'</a></li>');
+            $('.content').append('<p class="am-article-lead">'+ content +'</p>');
+      }
+    });      
+</script>
 </body>
 </html>

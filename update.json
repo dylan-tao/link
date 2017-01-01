@@ -1,6 +1,16 @@
 {
     "base": {
         "v": "0.9.5",
-        "download": "http://galaxy.javaosc.com/issue/galaxy-0.9.5.RELEASE"
+        "dl-domain": "https://github.com/javaosc-projects/link/raw/gh-pages/issue/galaxy-",
+        "download": "0.9.5.RELEASE.jar"
     }
+    "update": [
+        {
+         "v": "0.9.5.RELEASE",
+         "content": 
+            "1. 添加service服务方法自动输出传入参数和返回结果到控制台的开关；<br>
+			 2. 
+            "
+    	}
+    ]
 }

@@ -266,7 +266,7 @@
 <script src="js/amazeui.min.js"></script>
 <script type="text/javascript">
     $.getJSON("update.json",function(data){
-    	$(".download").attr("href",data.base.download);
+    	$(".download").attr("href",data.base.dl-domain + data.base.download);
     	$(".v").html(data.base.v);
     });
 	console.log("    ______          __                          ");
