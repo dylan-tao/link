@@ -114,7 +114,7 @@
       min-height: 800px;
     }
 
-    .am-g-fixed{margin: 16px auto;padding: 35px 0;background: #fff;}  
+    .am-g-fixed{margin: 67px auto;padding: 35px 0;background: #fff;}  
 
     .footer p {
       color: #7f8c8d;
@@ -122,6 +122,9 @@
       padding: 15px 0;
       text-align: center;
       background: #2d3e50;
+    }
+    .scrollspy-nav {
+	    z-index: 100;
     }
   </style>
 </head>
@@ -166,7 +169,8 @@
       <div class="am-u-sm-11 am-u-sm-centered">
         <div class="am-cf am-article">
           <div>
-		   <p class="am-article-lead">待更新</p>
+		   <p class="am-article-lead">Galaxy是一款Java web开发框架，集轻量级、高性能、创新于一体，为Javaosc社区提供核心支持。通过最佳项目实践，在保证性能和稳定的同时，引入优秀的第三方插件，让开发者能够更加简洁和高效的使用Java语言来开发。接下来就让我们一起进入Galaxy框架的课堂吧~</p>
+
           </div>
         </div>
 		<br>
@@ -175,15 +179,15 @@
   </div>
   <div class="am-u-md-2 am-u-md-pull-10 my-sidebar">
     <div class="am-offcanvas" id="sidebar">
-      <div class="am-offcanvas-bar">
+      <div class="am-offcanvas-bar scrollspy-nav" data-am-scrollspynav="{offsetTop: 108}" data-am-sticky>
         <ul class="am-nav">
           <li class="am-nav-header">目录</li>
-          <li><a href="#">简介及初衷</a></li>
+          <li><a href="#">简介</a></li>
           <li><a href="#">快速上手</a></li>
           <li><a href="#">规范和约定</a></li>
           <li><a href="#">最佳实践</a></li>
-    		  <li><a href="#">建议回档</a></li>
-    		  <li><a href="#">关于我们</a></li>
+    	  <li><a href="#">建议回档</a></li>
+          <li><a href="#">关于我们</a></li>
         </ul>
       </div>
     </div>
