@@ -129,6 +129,11 @@
     .doc-content {
     font-size: 1.4rem;
 	}
+	pre{
+		background-color: none;
+		border:0;
+    	border-radius: 0;
+	}
   </style>
 </head>
 <body>
@@ -174,6 +179,7 @@
           <div class="doc-content">
 	           <h2 id="jianjie" name="jianjie">简介</h2>
 			   <p class="am-article-lead">Galaxy是一款Java web开发框架，集轻量级、高性能、创新于一体，为Javaosc社区提供核心支持。通过最佳项目实践，在保证性能和稳定的同时，引入优秀的第三方插件，让开发者能够更加简洁和高效的使用Java语言来开发。接下来就让我们一起来学习下Galaxy框架吧~</p>
+			   <h2 id="jianjie" name="jianjie">依赖关系</h2>
 			   <p class="am-text-danger"><b>核心依赖：</b><br><br>slf4j-api.jar（通用日志接口），属于强依赖，必不可少。（可以用此接口引入logback或log4j实现日志功能）</p>
 			   <p><b>选择性场景依赖：<small class="am-text-success">（看到下面的介绍不要恐惧，以下是全场景的可选依赖，并且类包小到没有朋友）</small></b><br><br>1. Dao层不使用接口类，仅当作编写Sql的模板用，则引用Cglib-nodep动态代理类包)；<br>2. 页面需要返回Json数据，则需引入Google的Gson类包；<br>3. 实现上传功能，则需要引入Tim O'Reilly的Cos类包；<br>4. 实现数据库连接池，则需要引入HikariCP或C3p0类包；<br>5. 页面需要使用模板引擎，则需要引入Dubbo作者的Httl类包；</p>
 	           <h3>依赖预览：<small class="am-text-secondary"> 必须依赖：212.1 KB，可选依赖：1412.27 KB，版本推荐实时维护</small></h3>
@@ -187,7 +193,17 @@
 			  		<li><span class="am-badge am-badge-success">可选</span>c3p0-0.9.5.2.jar - 数据库连接池 - 350KB + 603KB</li>
 			  		<li><span class="am-badge am-badge-success">可选</span>httl-1.0.12.jar - 模板引擎 - 526KB</li>
 			   </ul>
-			   <h2 id="jianjie" name="jianjie">快速上手</h2>
+			   <h2 id="jianjie" name="jianjie">web.xml 细节说明</h2>
+			   <h3>1. 添加框架监听容器配置 (建议放在文件最顶部) <span class="am-badge am-badge-danger">必须</span></h3>
+			   <pre class="am-pre-scrollable">&lt;listener&gt;<br>    &lt;listener-class&gt;org.javaosc.galaxy.web.ContextListener&lt;/listener-class&gt;<br>&lt;/listener&gt;</pre>
+			   <h3> 2. 为框架装载核心配置 (紧跟上述监听配置) <span class="am-badge am-badge-danger">必须</span></h3>
+			   <pre class="am-pre-scrollable">&lt;context-param&gt;<br>   &lt;param-name&gt;galaxyConfig&lt;/param-name&gt;<br>   &lt;param-value&gt;configuration.properties&lt;/param-value&gt;<br>&lt;/context-param&gt;</pre>
+			   <p class="am-text-warning">说明：其中galaxyConfig命名不可改变；configuration.properties文件推荐建立在src根目录下，此文件可以自由重命名和改变所在目录，前提是文件命名和所在目录要与此配置项引用保持一致。</p>
+ 			   <h3> 3. 为框架装载业务扩展配置 (紧跟核心配置项) <span class="am-badge am-badge-success">可选</span></h3>
+			   <pre class="am-pre-scrollable">&lt;context-param&gt;<br>   &lt;param-name>expandConfig&lt;/param-name&gt;<br>   &lt;param-value>a.properties,b.properties&lt;/param-value&gt;<br>&lt;/context-param&gt;</pre></pre>
+			   <p class="am-text-warning">说明：其中expandConfig命名不可改变；a,b.properties文件推荐建立在src根目录或子目录下，支持多个扩展配置装载，此文件可以自由重命名和改变所在目录，前提是文件命名和所在目录要与此配置项引用保持一致。</p>
+				  
+			
 		   </div>
         </div>
 		<br>
@@ -201,10 +217,14 @@
           <li class="am-nav-header">目录</li>
           <li><a href="#">简介</a></li>
           <li><a href="#">快速上手</a></li>
-          <li><a href="#">规范和约定</a></li>
+          <li class="am-nav-header">细节巩固</li>
+          <li><a href="#">依赖关系</a></li>
+          <li><a href="#">web.xml</a></li>
+          <li><a href="#">galaxy.properties</a></li>
+          <li><a href="#">注解说明</a></li>
+          <li><a href="#">单元测试</a></li>
           <li><a href="#">最佳实践</a></li>
     	  <li><a href="#">建议回档</a></li>
-          <li><a href="#">关于我们</a></li>
         </ul>
       </div>
     </div>
@@ -239,5 +259,6 @@
 <script src="js/jquery.min.js"></script>
 <!--<![endif]-->
 <script src="js/amazeui.min.js"></script>
+
 </body>
 </html>
