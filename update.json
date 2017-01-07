@@ -9,7 +9,7 @@
             "v": "0.9.5.RELEASE",
             "date": "2016-11-09",
             "tag": "xxx",
-            "content": "1. 添加service服务方法自动输出传入参数和返回结果到控制台的开关；<br> 2. "
+            "content": "1. 添加service服务方法自动输出传入参数和返回结果到控制台的开关；<br> 2. 修复action接收单个属性预设为数组的错误；<br> 3. 修复action返回json数据时return null时，显示 Cannot create a session after the response has been committed的错误； "
         }
     ]
 }

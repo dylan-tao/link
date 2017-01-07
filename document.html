@@ -177,9 +177,11 @@
       <div class="am-u-sm-11 am-u-sm-centered">
         <div class="am-cf am-article">
           <div class="doc-content">
-	           <h2 id="jianjie" name="jianjie">简介</h2>
+	           <h2 id="inst" name="inst">简介</h2>
 			   <p class="am-article-lead">Galaxy是一款Java web开发框架，集轻量级、高性能、创新于一体，为Javaosc社区提供核心支持。通过最佳项目实践，在保证性能和稳定的同时，引入优秀的第三方插件，让开发者能够更加简洁和高效的使用Java语言来开发。接下来就让我们一起来学习下Galaxy框架吧~</p>
-			   <h2 id="jianjie" name="jianjie">依赖关系</h2>
+			   <h3>基础环境</h3>
+			   <p>在框架的开发中我们逐渐发现了Jdk1.7的一些进步和改善以及Jdk1.6的一些不足之处，所以本框架<span class="am-badge am-badge-danger">基于Jdk1.7和Tomcat7.0环境</span>而开发。如果您是将要建立的工程或项目，我们欢迎您加入到Galaxy的使用中；如果您是老项目的迁移，我们建议您评估当前迁移的工作量和人力成本，自我做下决定。</p>
+			   <h2 id="ref" name="ref">依赖关系</h2>
 			   <p class="am-text-danger"><b>核心依赖：</b><br><br>slf4j-api.jar（通用日志接口），属于强依赖，必不可少。（可以用此接口引入logback或log4j实现日志功能）</p>
 			   <p><b>选择性场景依赖：<small class="am-text-success">（看到下面的介绍不要恐惧，以下是全场景的可选依赖，并且类包小到没有朋友）</small></b><br><br>1. Dao层不使用接口类，仅当作编写Sql的模板用，则引用Cglib-nodep动态代理类包)；<br>2. 页面需要返回Json数据，则需引入Google的Gson类包；<br>3. 实现上传功能，则需要引入Tim O'Reilly的Cos类包；<br>4. 实现数据库连接池，则需要引入HikariCP或C3p0类包；<br>5. 页面需要使用模板引擎，则需要引入Dubbo作者的Httl类包；</p>
 	           <h3>依赖预览：<small class="am-text-secondary"> 必须依赖：212.1 KB，可选依赖：1412.27 KB，版本推荐实时维护</small></h3>
@@ -189,10 +191,205 @@
 			  		<li><span class="am-badge am-badge-success">可选</span>cglib-nodep-3.2.4.jar - 动态代理，Jdk代理的增强实现 - 343KB</li>
 			  		<li><span class="am-badge am-badge-success">可选</span>gson-2.8.0.jar - Json处理插件 - 143KB</li>
 			  		<li><span class="am-badge am-badge-success">可选</span>cos-05Nov2002.jar - 上传插件 - 55KB</li>
-			  		<li><span class="am-badge am-badge-success">可选</span>HikariCP-2.5.1.jar - 数据库连接池 - 133.17KB -  <span class="am-text-primary">推荐使用，字节码实现，新一代连接池 *</span></li>
+			  		<li><span class="am-badge am-badge-success">可选</span>HikariCP-2.4.7.jar - 数据库连接池 - 133.17KB -  <span class="am-text-primary">推荐使用，字节码实现，新一代连接池 *</span></li>
 			  		<li><span class="am-badge am-badge-success">可选</span>c3p0-0.9.5.2.jar - 数据库连接池 - 350KB + 603KB</li>
 			  		<li><span class="am-badge am-badge-success">可选</span>httl-1.0.12.jar - 模板引擎 - 526KB</li>
 			   </ul>
+			   <h2 id="quick" name="quick">快速上手</h2>
+			   <h3>1) 启动尝鲜</h3>
+			   <p>1. 新建web项目并将galaxy-x.x.x.RELEASE.jar和slf4j-api-1.7.22.jar添加到lib目录下 <span class="am-badge am-badge-danger">目前maven仓库还未开放</span></p>
+			   <p>2. 为该项目的WEB-INF目录下，添加如下web.xml配置并新建index.jsp,并在该页面的body里写入Hello!</span></p>
+			   <pre class="am-pre-scrollable">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:jsp="http://java.sun.com/xml/ns/javaee/jsp" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0"&gt;<br>
+&lt;display-name&gt;galaxy framework example&lt;/display-name&gt;<br>
+&lt;!-- 配置框架监听 --&gt;
+&lt;listener&gt;
+    &lt;listener-class&gt;org.javaosc.galaxy.web.ContextListener&lt;/listener-class&gt;
+&lt;/listener&gt;<br>
+&lt;!-- 监听下装载核心配置 --&gt;
+&lt;context-param&gt;
+    &lt;param-name&gt;>galaxyConfig&lt;/param-name&gt;
+    &lt;param-value&gt;galaxy.properties&lt;/param-value&gt;
+&lt;/context-param&gt;<br>
+&lt;!-- 静态文件放行 --&gt;
+&lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;default&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;*.css&lt;/url-pattern&gt;
+&lt;/servlet-mapping&gt;
+&lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;default&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;*.js&lt;/url-pattern&gt;
+&lt;/servlet-mapping&gt;
+&lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;default&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;*.jpg&lt;/url-pattern&gt;
+&lt;/servlet-mapping&gt;
+&lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;default&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;*.png&lt;/url-pattern&gt;
+&lt;/servlet-mapping&gt;
+&lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;default&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;*.gif&lt;/url-pattern&gt;
+&lt;/servlet-mapping&gt;
+
+&lt;!-- 配置核心转发 --&gt;
+&lt;servlet&gt;
+    &lt;servlet-name&gt;galaxy&lt;/servlet-name&gt;
+    &lt;servlet-class&gt;org.javaosc.galaxy.web.ContextServlet&lt;/servlet-class&gt;
+    &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;
+&lt;/servlet&gt;
+&lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;galaxy&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;/&lt;/url-pattern&gt;
+&lt;/servlet-mapping&gt;
+  
+&lt;!-- 配置启动欢迎页 --&gt;
+&lt;welcome-file-list&gt;
+    &lt;welcome-file&gt;/WEB-INF/index.jsp&lt;/welcome-file&gt;
+&lt;/welcome-file-list&gt;
+&lt;/web-app&gt;
+</pre>
+
+<pre>
+&lt;body&gt;
+Hello!
+&lt;/body&gt;
+</pre>
+<p>3. 为该项目的src目录添加galaxy.properties核心配置</p>
+			   <pre class="am-pre-scrollable">
+#============== galaxy configuration setting ==============
+galaxy.context.encode = UTF-8  //设置框架的上下文编码，默认UTF-8
+galaxy.request.character.encode = true //设置请求编码 ，默认false
+galaxy.response.character.encode = true //设置响应编码，默认false
+
+galaxy.console.started.status = true //控制台是否输出框架欢迎提示，默认true
+
+galaxy.datasource.open.status = false //开启数据源初始化，默认true
+			   </pre>
+<p>4. 将项目工程部署到Tomcat7.0下启动，控制台输出框架欢迎提示并且新建的index.jsp成功显示Hello!。</p>
+<h3>2) 网页发送请求到自定义url路径，并成功返回</h3>
+
+<p>1. 为galaxy.properties添加页面路径和扫描类包路径配置</p>
+<pre class="am-pre-scrollable">
+galaxy.view.prefix = /WEB-INF //请求返回的页面根目录，默认/WEB-INF
+galaxy.view.suffix = .jsp //请求返回的页面的后缀格式,默认.jsp
+
+galaxy.scaner.annotation.package = com.javaosc //要扫描的类包根目录或指定目录</pre>
+
+<p>2. 在src目录下新建包：com.javaosc.user.action，并新建类：UserAction</p>
+
+<p>3. 为UserAction类上添加@Mapping("/user")注解；新建返回类型为String的方法，并在方法上添加注解@Mapping("/hello")，并在方法里添加返回到页面的数据：world，并将方法返回到index.jsp</p>
+<pre>
+package com.javaosc.user.action;
+
+import org.javaosc.galaxy.annotation.Mapping;
+import org.javaosc.galaxy.web.assist.ContextHandler;
+
+@Mapping("/user")
+public class UserAction {
+	
+	@Mapping("/hello")
+	public String getUserList(){
+	   ContextHandler.putAttr("h","world");
+	   return "index";
+	}
+}
+</pre>
+<p>4. 编辑在WEB-INF目录下的index.jsp，在Hello后面添加${h}</p>
+<pre>
+&lt;body&gt;
+Hello,${h }!
+&lt;/body&gt;
+</pre>
+<p>5. 在浏览器输入localhost/user/hello 回车发送请求，成功显示Hello，world！即可</p>
+
+<h3>3) 让action的方法具备返回json的能力</h3>
+<p>1. 改造之前的方法，加入传参Byte type，并将gson-2.8.0.jar添加到lib下，返回json数据</p>
+<pre class="am-pre-scrollable">
+@Mapping("/hello")
+public String getUserList(Byte type){
+	if(type==null || type==0){
+		ContextHandler.putAttr("h","world");
+		return "index";
+	}else{
+		ContextHandler.putJson("h","world");
+		return null;
+	}
+}
+</pre>
+<p>2. 在地址栏输入localhost/user/hello?type=1回显json格式数据即成功，不输入或者type=0返回到index.jsp数据</p>
+
+<h3>4) 让action的方法返回到页面多个参数或者输出oo对象</h3>
+<p>1. 在src目录下新建包：com.javaosc.user.model，并且新建类：User，并在类上注入@Bean注解</p>
+<pre class="am-pre-scrollable">
+package com.javaosc.user.model;
+
+import org.javaosc.galaxy.annotation.Bean;
+
+@Bean
+public class User {
+	
+	private String name;
+	private Integer age;
+	private Byte type;
+	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public Integer getAge() {
+		return age;
+	}
+	public void setAge(Integer age) {
+		this.age = age;
+	}
+	public Byte getType() {
+		return type;
+	}
+	public void setType(Byte type) {
+		this.type = type;
+	}
+}
+</pre>
+<p>2. 改造之前的方法参数为User user,并用putAttr多个参数到页面，将User对象包含在内返回，并对User对象里的age属性设置18</p>
+<pre>
+@Mapping("/hello")
+public String getUserList(User user){
+	user = user==null?new User():user;
+	user.setAge(18);
+	if(user.getType()==null || user.getType()==0){	
+		ContextHandler.putAttr("h","world","name","dylan","user",user);
+		return "index";
+	}else{
+		ContextHandler.putJson("h","world");
+		return null;
+	}
+}
+</pre>
+<p>3. 在index.jsp获取name的值，并且从User对象里获取到age属性显示</p>
+<pre>
+<body>
+Hello,${h }! my name is ${name },${user.age } year old!
+</body>
+</pre>
+<p>4. 在地址栏输入localhost/user/hello 或者后缀type=0，回显index.jsp数据即可</p>
+<h3>5) 让action的方法返回json的User对象</h3>
+<p>1. 改造else的putJson如下，返回User对象</p>
+<pre>ContextHandler.putJson(user);</pre>
+<p>2. 在地址栏输入localhost/user/hello?type=1，返回User对象的json数据即可</p>
+
+<h3>5) 让action的方法返回json自定义属性的对象</h3>
+<p>1. 改造else的putJson如下，返回多个自定义属性</p>
+<pre>ContextHandler.putJson("h","world","name","dylan","user",user);</pre>
+<p>2. 在地址栏输入localhost/user/hello?type=1，返回json数据中包含user对象即可</p>
+
+<hr>
+<h2 class="am-text-danger">截至以上MVC篇已经完毕，持久和事务、以及数据源，待补充</h2>
+
+
 			   <h2 id="jianjie" name="jianjie">web.xml 细节说明</h2>
 			   <h3>1. 添加框架监听容器配置 (建议放在文件最顶部) <span class="am-badge am-badge-danger">必须</span></h3>
 			   <pre class="am-pre-scrollable">&lt;listener&gt;<br>    &lt;listener-class&gt;org.javaosc.galaxy.web.ContextListener&lt;/listener-class&gt;<br>&lt;/listener&gt;</pre>
@@ -215,10 +412,10 @@
       <div class="am-offcanvas-bar scrollspy-nav" data-am-scrollspynav="{offsetTop: 108}" data-am-sticky>
         <ul class="am-nav">
           <li class="am-nav-header">目录</li>
-          <li><a href="#">简介</a></li>
-          <li><a href="#">快速上手</a></li>
+          <li><a href="#inst">简介</a></li>
+          <li><a href="#ref">依赖关系</a></li>
+          <li><a href="#quick">快速上手</a></li>
           <li class="am-nav-header">细节巩固</li>
-          <li><a href="#">依赖关系</a></li>
           <li><a href="#">web.xml</a></li>
           <li><a href="#">galaxy.properties</a></li>
           <li><a href="#">注解说明</a></li>
