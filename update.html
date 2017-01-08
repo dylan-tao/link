@@ -230,11 +230,20 @@
               var v = updates[i].v;
               var content = updates[i].content;
               var date = updates[i].date;
-              var href = domain + v + ".jar";
+              var href = domain + "galaxy-" + v + ".jar";
               $('.v-list').after('<li><a href="#'+v+'">'+ v +'</a></li>');
               $('.content').after('<h3 id="'+v+'" name="'+v+'">'+ v +'更新内容: <small class="am-text-danger" style="padding-left:12px;">'+date+'</small></h3><hr><p class="am-article-lead">'+ content +'</p><p class="am-text-right am-text-sm"><a href="'+ href +'" target="_blank">下载地址</a>&nbsp;<a href="javascript:void(0);" target="_blank">源码下载</a></p>');
         }
     }   
+</script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?00d07fa20b84114f166ff003315066aa";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
 </script>
 </body>
 </html>

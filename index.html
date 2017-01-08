@@ -266,7 +266,7 @@
 <script src="js/amazeui.min.js"></script>
 <script type="text/javascript">
     $.getJSON("update.json?v=11232546546",function(data){
-    	$(".download").attr("href",data.base.domain + data.base.download);
+    	$(".download").attr("href",data.base.domain + "galaxy-" + data.base.download);
     	$(".v").html(data.base.v);
     });
 	console.log("    ______          __                          ");
