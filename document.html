@@ -381,10 +381,33 @@ Hello,${h }! my name is ${name },${user.age } year old!
 <pre>ContextHandler.putJson(user);</pre>
 <p>2. 在地址栏输入localhost/user/hello?type=1，返回User对象的json数据即可</p>
 
-<h3>5) 让action的方法返回json自定义属性的对象</h3>
+<h3>6) 让action的方法返回json自定义属性的对象</h3>
 <p>1. 改造else的putJson如下，返回多个自定义属性</p>
 <pre>ContextHandler.putJson("h","world","name","dylan","user",user);</pre>
 <p>2. 在地址栏输入localhost/user/hello?type=1，返回json数据中包含user对象即可</p>
+
+<h3>7) 让action的方法可以拥有动态占位url</h3>
+<p>1. 改造方法上的@Mapping注解的设置为{type}</p>
+<pre>@Mapping("/{type}")
+public String getUserList(User user){
+    user = user==null?new User():user;
+    user.setAge(18);
+    if(user.getType()==null || user.getType()==0){
+      ContextHandler.putAttr("h","world","name","dylan","user",user);
+      return "index";
+    }else{
+      ContextHandler.putJson(user);
+      return null;
+    }
+}</pre>
+<p>2. 在地址栏输入localhost/user/0或者localhost/user/1，分别页面对象和json数据即可</p>
+
+<h3>8) action默认是单例多线程的，让其成为多例模式，在类上添加@Prototype注解</h3>
+<pre>@Prototype
+@Mapping("/user")
+public class UserAction {
+    ...
+}</pre>
 
 <hr>
 <h2 class="am-text-danger">截至以上MVC篇已经完毕，持久和事务、以及数据源，待补充</h2>
