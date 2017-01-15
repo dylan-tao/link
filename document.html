@@ -271,6 +271,9 @@ galaxy.datasource.open.status = false //开启数据源初始化，默认true
 <p>4. 将项目工程部署到Tomcat7.0下启动，控制台输出框架欢迎提示并且新建的index.jsp成功显示Hello!。</p>
 <hr>
 <h2 id="action" name="action">转发控制器</h2>
+<blockquote>
+  <p>action的method方法的接收参数支持Java基础类型、基础包装类型、自定义oo对象、HttpServletRequest和HttpServletResponse，后期会支持Json数据的接收，目前上传可以根据HttpServletRequest和框架工具类实现，还在考虑是否包装对象参数来实现，这样势必会增加学习曲线，后期会根据大家的建议来考虑是否把cos插件纳入到框架中成为Galaxy的一部分，cos插件的作者已经不维护了，纳入进来后我们会进行二次重构，请知悉！</p>
+</blockquote>
 <h3>1) 网页发送请求到自定义url路径，并成功返回</h3>
 
 <p>1. 为galaxy.properties添加页面路径和扫描类包路径配置</p>
@@ -332,29 +335,37 @@ import org.javaosc.galaxy.annotation.Bean;
 
 @Bean
 public class User {
-	
-	private String name;
-	private Integer age;
-	private Byte type;
-	
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public Integer getAge() {
-		return age;
-	}
-	public void setAge(Integer age) {
-		this.age = age;
-	}
-	public Byte getType() {
-		return type;
-	}
-	public void setType(Byte type) {
-		this.type = type;
-	}
+  
+  private Integer userId;
+  private String userName;
+  private Integer age;
+  private Byte type;
+  
+  public Integer getUserId() {
+    return userId;
+  }
+  public void setUserId(Integer userId) {
+    this.userId = userId;
+  }
+  public String getUserName() {
+    return userName;
+  }
+  public void setUserName(String userName) {
+    this.userName = userName;
+  }
+  public Integer getAge() {
+    return age;
+  }
+  public void setAge(Integer age) {
+    this.age = age;
+  }
+  public Byte getType() {
+    return type;
+  }
+  public void setType(Byte type) {
+    this.type = type;
+  }
+  
 }
 </pre>
 <p>2. 改造之前的方法参数为User user,并用putAttr多个参数到页面，将User对象包含在内返回，并对User对象里的age属性设置18</p>
@@ -411,9 +422,113 @@ public String getUserList(User user){
 public class UserAction {
     ...
 }</pre>
+<h3>8) 通过url请求直接返回到页面，不经过action控制器的处理（可以无限多个）</h3>
+<p>1. 为galaxy.properties添加页面url跳转，配置必须以galaxy.url.为开头。其中第二个等号的左边为浏览器url；右边为以galaxy.view.prefix配置为基础的相对页面目录（格式：galaxy.url.x.x...= /浏览器url=/相对页面目录）</p>
+<pre>galaxy.url.user.detail = /user/detail=/detail</pre>
+<p>2. 在WEB-INF根目录下，新建detail.jsp并在body标签里填写Hello，world！</p>
+<pre>&lt;body&gt;
+Hello，World！
+&lt;/body&gt;</pre>
+<p>3. 在地址栏输入localhost/user/detail，页面直接成功跳转到detail.jsp并显示Hello，world！</p>
 <hr>
-<h2 id="action" name="action">业务逻辑服务</h2>
+<h2 id="action" name="action">Sql模板</h2>
+<blockquote>
+  <p>目前jdbcHanler支持单列单行，单列多行，对象(多列)单行，对象(多列)多行，分页多行查询；支持单条和批量增、删、改，能够支撑几乎所有的场景，除级联一对多个附表查询以外，对数据库的列我们内置做了预缓存，数据库表的列多个字母可以用英文下划线隔开，ps：user_name，对其他特殊字符我们无法完成表列对oo对象的映射，请知悉！</p>
+</blockquote>
+<h3>1) 为action转发控制器添加数据源访问，完成dao模板注入到action控制器(下个模块会加入service业务逻辑处理)</h3>
+<p>1. 为galaxy.properties添加数据源（目前支持HikariCP或C3P0连接池）配置并开启访问数据源开关，我们选择HikariCP来完成演示</p>
+<pre>
+galaxy.datasource.open.status = true //数据源开关，默认true，修改为true或者将此配置项移除
 
+# ====== HikariCP connect setting ======
+
+db.driverClassName = com.mysql.jdbc.Driver //数据库驱动
+db.jdbcUrl = jdbc:mysql://localhost:3306/javaosc?useUnicode=true&amp;characterEncoding=UTF-8 //数据库链接及库名
+db.username = root //数据库的账号
+db.password = 123 //数据库的密码
+
+pool.dataSource = com.zaxxer.hikari.HikariDataSource //数据连接池
+pool.maxPoolSize = 100
+pool.maxIdleTime = 300000
+pool.maxLifetime = 900000
+pool.connectionTimeout = 30000
+pool.validationTimeout = 5000
+
+pool.cachePrepStmts=true
+pool.prepStmtCacheSize=250
+pool.prepStmtCacheSqlLimit=2048
+</pre>
+<p>2. 将cglib-nodep-3.2.4.jar,HikariCP-2.4.7.jar连接池和mysql-connector-java-5.1.38.jar数据库驱动添加到项目lib目录，并在mysql中新建javaosc库和user表，添加user_id,user_name,age,type列，完成和之前控制器中User对象的列对应关系</p>
+<p>3. 在src目录下新建包：com.javaosc.user.dao，并且新建dao模板类：UserDao，在该类上添加@Dao注解，并且将jdbcTemplate声明为全局类变量，为此全局变量添加@Autowired，达到注入作用</p>
+<pre>
+package com.javaosc.user.dao;
+
+import org.javaosc.galaxy.annotation.Autowired;
+import org.javaosc.galaxy.annotation.Dao;
+import org.javaosc.galaxy.jdbc.JdbcTemplate;
+
+@Dao
+public class UserDao{
+  
+  @Autowired
+  private JdbcTemplate jdbcTemplate;
+  
+
+}
+</pre>
+
+<p>4. 在UserDao类中新建方法User getUser(User user),并在此类中新建方法，编写对象单行查询sql</p>
+<pre>
+package com.javaosc.user.dao;
+
+import org.javaosc.galaxy.annotation.Autowired;
+import org.javaosc.galaxy.annotation.Dao;
+import org.javaosc.galaxy.jdbc.JdbcTemplate;
+
+import com.javaosc.user.model.User;
+
+@Dao
+public class UserDao{
+  
+  @Autowired
+  private JdbcTemplate jdbcTemplate;
+
+  public User getUser(User user) {
+    String sql = "select * from user where user_id = ?";
+    return jdbcTemplate.getForObject(sql, User.class, user.getUserId());
+  }
+  
+}
+</pre>
+<p>5. 将UserDao类声明为UserAction的全局变量类，并将其用@Autowired注解注入，在UserAction类中新建geyUserDetail(Integer userId)方法并调用dao模板的getUser(User user)方法，完成控制器访问数据源</p>
+<pre>
+package com.javaosc.user.action;
+
+import org.javaosc.galaxy.annotation.Autowired;
+import org.javaosc.galaxy.annotation.Mapping;
+import org.javaosc.galaxy.web.assist.ContextHandler;
+
+import com.javaosc.user.dao.UserDao;
+import com.javaosc.user.model.User;
+
+@Mapping("/user")
+public class UserAction {
+  
+  @Autowired
+  private UserDao userDao;
+  
+  @Mapping("/get")
+  public String getUserList(Integer userId){
+    User user = new User();
+    user.setUserId(userId);
+    User result = userDao.getUser(user);
+    ContextHandler.putJson(result);
+    return null;
+  }
+
+}
+</pre>
+<p>6. 在地址栏输入localhost/user/get?userId=1，页面能够成功显示数据源的json格式数据即可！</p>
 
 			   <h2 id="jianjie" name="jianjie">web.xml 细节说明</h2>
 			   <h3>1. 添加框架监听容器配置 (建议放在文件最顶部) <span class="am-badge am-badge-danger">必须</span></h3>
@@ -441,8 +556,8 @@ public class UserAction {
           <li><a href="#ref">依赖关系</a></li>
           <li><a href="#new">启动尝鲜</a></li>
           <li><a href="#action">转发控制器</a></li>
-          <li><a href="#service">业务逻辑服务</a></li>
           <li><a href="#dao">Sql模板</a></li>
+          <li><a href="#service">业务逻辑服务</a></li>   
           <li><a href="#unit">单元测试</a></li>
           <li class="am-nav-header">细节深入</li>
           <li><a href="#">web.xml</a></li>
