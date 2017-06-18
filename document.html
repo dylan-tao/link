@@ -180,16 +180,17 @@
 	           <h2 id="inst" name="inst">简介</h2>
 			   <p class="am-article-lead">Galaxy是一款Java web开发框架，集轻量级、高性能、创新于一体，为Javaosc社区提供核心支持。通过最佳项目实践，在保证性能和稳定的同时，引入优秀的第三方插件，让开发者能够更加简洁和高效的使用Java语言来开发。接下来就让我们一起来学习下Galaxy框架吧~</p>
 			   <h3>基础环境</h3>
-			   <p>在框架的开发中我们逐渐发现了Jdk1.7的一些进步和改善以及Jdk1.6的一些不足之处，所以本框架<span class="am-badge am-badge-danger">基于Jdk1.7和Tomcat7.0环境</span>而开发。如果您是将要建立的工程或项目，我们欢迎您加入到Galaxy的使用中；如果您是老项目的迁移，我们建议您评估当前迁移的工作量和人力成本，自我做下决定。</p>
+			   <p>在框架的开发中我们逐渐发现了Jdk1.7+的一些进步和改善以及Jdk1.6的一些不足之处，所以本框架<span class="am-badge am-badge-danger">基于Jdk1.7+和Tomcat7.0+环境</span>而开发。如果您是将要建立的工程或项目，我们欢迎您加入到Galaxy的使用中；如果您是老项目的迁移，我们建议您评估当前迁移的工作量和人力成本，自我做下决定。</p>
          <hr>
 			   <h2 id="ref" name="ref">依赖关系</h2>
 			   <p class="am-text-danger"><b>核心依赖：</b><br><br>slf4j-api.jar（通用日志接口），属于强依赖，必不可少。（可以用此接口引入logback或log4j实现日志功能）</p>
-			   <p><b>选择性场景依赖：<small class="am-text-success">（看到下面的介绍不要恐惧，以下是全场景的可选依赖，并且类包小到没有朋友）</small></b><br><br>1. Dao层不使用接口类，仅当作编写Sql的模板用，则引用Cglib-nodep动态代理类包)；<br>2. 页面需要返回Json数据，则需引入Google的Gson类包；<br>3. 实现数据库连接池，则需要引入HikariCP或C3p0类包；<br>4. 页面需要使用模板引擎，则需要引入Dubbo作者的Httl类包；</p>
+			   <p><b>选择性场景依赖：<small class="am-text-success">（看到下面的介绍不要恐惧，以下是全场景的可选依赖，并且类包小到没有朋友）</small></b><br><br>
+			   <del>1. Dao层不使用接口类，仅当作编写Sql的模板用，则引用Cglib-nodep动态代理类包,cglib性能不再有优势-废弃；</del><br>2. 页面需要返回Json数据，则需引入Google的Gson类包；<br>3. 实现数据库连接池，则需要引入HikariCP或C3p0类包；<br>4. 页面需要使用模板引擎，则需要引入Dubbo作者的Httl类包；</p>
 	       <h3>依赖预览：<small class="am-text-secondary"> 必须依赖：212.1 KB，可选依赖：1412.27 KB，版本推荐实时维护</small></h3>
 	       <ul class="am-list am-list-static am-list-border plugin">
-	          <li><span class="am-badge"><a name="galaxy-0.9.5.RELEASE.jar" style="color: #fff;">立即下载</a></span><span class="am-badge am-badge-danger">必须</span>galaxy-0.9.5.RELEASE.jar - Galaxy框架 - 172KB</li>
+	          <li><span class="am-badge"><a name="galaxy-0.9.5.RELEASE.jar" style="color: #fff;">立即下载</a></span><span class="am-badge am-badge-danger">必须</span>galaxy-0.9.6.RELEASE.jar - Galaxy框架 - 172KB</li>
 			  		<li><span class="am-badge"><a name="slf4j-api-1.7.22.jar" style="color: #fff;">立即下载</a></span><span class="am-badge am-badge-danger">必须</span>slf4j-api-1.7.22.jar - 通用日志接口 - 40.1KB -  <span class="am-text-primary">建议使用logback实现日志，原log4j作者新作 *</span></li>
-			  		<li><span class="am-badge"><a name="cglib-nodep-3.2.4.jar" style="color: #fff;">立即下载</a></span><span class="am-badge am-badge-success">可选</span>cglib-nodep-3.2.4.jar - 动态代理，Jdk代理的增强实现 - 343KB</li>
+			  		<li><span class="am-badge"><a name="cglib-nodep-3.2.4.jar" style="color: #fff;">立即下载</a></span><span class="am-badge am-badge-success">可选</span><del>cglib-nodep-3.2.4.jar - 动态代理，Jdk代理的增强实现 - 343KB</del></li>
 			  		<li><span class="am-badge"><a name="gson-2.8.0.jar" style="color: #fff;">立即下载</a></span><span class="am-badge am-badge-success">可选</span>gson-2.8.0.jar - Json处理插件 - 143KB</li>
 			  		<li><span class="am-badge"><a name="HikariCP-2.4.7.jar" style="color: #fff;">立即下载</a></span><span class="am-badge am-badge-success">可选</span>HikariCP-2.4.7.jar - 数据库连接池 - 133.17KB -  <span class="am-text-primary">推荐使用，字节码实现，新一代连接池 *</span></li>
 			  		<li><span class="am-badge"><a name="c3p0-0.9.2.jar" style="color: #fff;">立即下载</a></span><span class="am-badge am-badge-success">可选</span>c3p0-0.9.2.jar - 数据库连接池 - 414KB</li>
