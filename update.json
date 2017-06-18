@@ -9,7 +9,7 @@
             "v": "0.9.5.RELEASE",
             "date": "2016-11-09",
             "tag": "xxx",
-            "content": "1. 添加service服务方法自动输出传入参数和返回结果到控制台的开关；<br> 2. 修复action接收单个属性预设为数组的错误；<br> 3. 修复action返回json数据时，显示 Cannot create a session after the response has been committed的错误；<br> 4. 扩展action的接收参数，支持json数据；<br> 5. 扩展action的接收参数，支持不识别contentType时尝试从流中解析参数；<br>  6. 扩展action的接收参数，支持上传文件的MultipartFile类的重构，使开发者使用更加友好和便捷； 7. cos上传由于作者（Tim O'Reilly）08年后不再维护，通过精简重构，并内置于框架中；"
+            "content": "1. 添加service服务方法自动输出传入参数和返回结果到控制台的开关；<br> 2. 修复action接收单个属性预设为数组的错误；<br> 3. 修复action返回json数据时，显示 Cannot create a session after the response has been committed的错误；<br> 4. 扩展action的接收参数，支持json数据；<br> 5. 扩展action的接收参数，支持不识别contentType时尝试从流中解析参数；<br>  6. 扩展action的接收参数，支持上传文件的MultipartFile类的重构，使开发者使用更加友好和便捷；<br> 7. cos上传由于作者（Tim O'Reilly）08年后不再维护，通过精简重构，并内置于框架中；"
         },
         {
             "v": "0.9.6.RELEASE",
