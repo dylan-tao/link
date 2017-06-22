@@ -15,7 +15,7 @@
             "v": "0.9.6.RELEASE",
             "date": "2017-06-17",
             "tag": "xxx",
-            "content": "1. 兼容升级jdk1.8（性能有所提升），框架可以在jdk1.7+上正常运行；<br> 2. 优化galaxy.properties一些参数配置和补充配置说明；<br> 3. 还原dao层接口创建，移除cglib的强依赖，保持框架只依赖slf4j-api日志接口；<br> "
+            "content": "1. 兼容升级jdk1.8（性能有所提升），框架可以在jdk1.7+上正常运行；<br> 2. 优化galaxy.properties一些参数配置和补充配置说明；<br> 3. 支持注入bean时，通过接口InitBeanProperties实现execute方法，完成对注入类的属性初始化；<br> 4. 扩展Convert注解标识，实现自定义属性类型的转换；<br> "
         }
     ]
 }
